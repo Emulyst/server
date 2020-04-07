@@ -1,0 +1,28 @@
+{
+  "name": "emulyst-server",
+  "description": "Duelyst server emulator",
+  "version": "0.0.1",
+  "main": "scripts/main.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/emulyst/server.git"
+  },
+  "keywords": [
+    "emulyst",
+    "emulyst-server",
+    "emulator",
+    "server-emulator",
+    "server"
+  ],
+  "author": "Emulyst",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/emulyst/server/issues"
+  },
+  "homepage": "https://emulyst.github.io",
+  "dependencies": {
+    "selfsigned": "^1.10.7",
+    "nexe": "^3.3.2",
+    "upx": "^1.0.6"
+  }
+}
