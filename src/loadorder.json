@@ -1,1 +1,9 @@
-{}
+{
+	"example_f": "src/classes/example.js",
+
+	"example_r": "src/responses/example.js",
+
+	"example_start_c": "src/callbacks/start/example.js",
+	"example_receive_c": "src/callbacks/receive/example.js",
+	"example_respond_c": "src/callbacks/respond/example.js"
+}
