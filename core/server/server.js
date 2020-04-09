@@ -1,7 +1,7 @@
 ﻿"use strict";
 
 const fs = require('fs');
-const https = require('https');
+const http = require('http');
 const selfsigned = require('selfsigned');
 
 class Server {
@@ -13,7 +13,7 @@ class Server {
         this.name = serverConfig.name;
         this.ip = serverConfig.ip;
         this.port = serverConfig.port;
-        this.backendUrl = "https://" + this.ip + ":" + this.port;
+        this.backendUrl = "http://" + this.ip + ":" + this.port;
         this.version = "0.0.1";
         this.mime = {
             gif: 'image/gif',
@@ -37,7 +37,7 @@ class Server {
     }
 
     generateCertifcate() {
-        let perms = selfsigned.generate([{ name: 'commonName', value: this.ip + "/" }], { days: 365 });
+        let perms = selfsigned.generate([{ name: 'commonName', value: "play.duelyst" }], { days: 365 });
         return {cert: perms.cert, key: perms.private};
     }
     
@@ -47,6 +47,11 @@ class Server {
     }
 
     sendFile(resp, file) {
+        if (!fs.existsSync(file)) {
+            resp.writeHead(404, "Not found");
+            resp.end();
+            return;
+        }
         let pathSlic = file.split("/");
         let type = this.mime[pathSlic[pathSlic.length -1].split(".")[1]];
         let fileStream = fs.createReadStream(file);
@@ -92,14 +97,14 @@ class Server {
         // request with data
         if (req.method === "POST") {
             req.on('data', function(data) {
-                let body = (data !== typeof "undefined" && data !== null && data !== "") ? body : {};
+                let body = (data !== typeof "undefined" && data !== null && data !== "") ? data : {};
                 server.sendResponse(req, resp, body);
             });
         }
     
         if (req.method === "PUT") {
             req.on('data', function(data) {
-                let body = (data !== typeof "undefined" && data !== null && data !== "") ? body : {};
+                let body = (data !== typeof "undefined" && data !== null && data !== "") ? data : {};
                 server.sendResponse(req, resp, body);
             });
         }
@@ -114,14 +119,14 @@ class Server {
         }
 
         /* create server */
-        let httpsServer = https.createServer(this.generateCertifcate(), (req, res) => {
+        let httpServer = http.createServer((req, res) => {
             this.handleRequest(req, res);
         }).listen(this.port, this.ip, function() {
             logger.logSuccess("Started server");
         });
 
         /* server is already running */
-        httpsServer.on('error', function(e) {
+        httpServer.on('error', function(e) {
             logger.logError("» Port " + e.port + " is already in use, check if the server isn't already running");
         });
     }
