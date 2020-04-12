@@ -80,26 +80,23 @@ class Server {
 
     handleRequest(req, resp) {
         const IP = req.connection.remoteAddress.replace("::ffff:", "");
-        logger.logRequest("[" + IP + "] " + req.url);
+        logger.logRequest("[" + IP + "] " + req.method + " " + req.url);
+        
+        let body = Buffer.alloc(0);
     
         // request without data
-        if (req.method === "GET") {
-            server.sendResponse(req, resp, "");
+        if (req.method === "GET" || req.method === "DELETE") {
+            server.sendResponse(req, resp, body);
         }
     
         // request with data
-        if (req.method === "POST") {
+        if (req.method === "POST" || req.method === "PUT" || req.method === "PATCH") {
             req.on('data', function(data) {
-                let body = (data !== typeof "undefined" && data !== null && data !== "") ? data : {};
-                server.sendResponse(req, resp, body);
+                body = (data instanceof Buffer) ? Buffer.concat([body, data]) : body;
             });
-        }
-    
-        if (req.method === "PUT") {
-            req.on('data', function(data) {
-                let body = (data !== typeof "undefined" && data !== null && data !== "") ? data : {};
+            req.on('end', function() {
                 server.sendResponse(req, resp, body);
-            });
+            })
         }
     }
 
