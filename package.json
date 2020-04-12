@@ -21,6 +21,8 @@
   },
   "homepage": "https://emulyst.github.io",
   "dependencies": {
+    "firebase": "^7.14.0",
+    "firebase-admin": "^8.10.0",
     "selfsigned": "^1.10.7",
     "nexe": "^3.3.2",
     "upx": "^1.0.6"

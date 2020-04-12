@@ -19,7 +19,7 @@ class Server {
             gif: 'image/gif',
             jpg: 'image/jpeg',
             png: 'image/png',
-	    ico: 'image/x-icon',
+	        ico: 'image/x-icon',
             json: 'application/json'
         };
     }
@@ -37,7 +37,7 @@ class Server {
     }
 
     generateCertifcate() {
-        let perms = selfsigned.generate([{ name: 'commonName', value: "play.duelyst" }], { days: 365 });
+        let perms = selfsigned.generate([{ name: 'commonName', value: this.ip + "/" }], { days: 365 });
         return {cert: perms.cert, key: perms.private};
     }
     
@@ -62,15 +62,8 @@ class Server {
         });
     }
 
-    sendResponse(req, resp, data) {
-        let output = "";
-    
-        // get response
-        if (req.method === "GET") {
-            output = router.getResponse(req, "");
-        } else {
-            output = router.getResponse(req, data);
-        }
+    async sendResponse(req, resp, data) {
+        let output = await router.getResponse(req, data);
 
         // execute data received callback
         for (let type in this.receiveCallback) {

@@ -1,9 +1,6 @@
 {
-	"example_f": "src/classes/example.js",
+	"resources": "src/responses/resources.js",
+	"login": "src/responses/login.js",
 
-	"example_r": "src/responses/example.js",
-
-	"example_start_c": "src/callbacks/start/example.js",
-	"example_receive_c": "src/callbacks/receive/example.js",
-	"example_respond_c": "src/callbacks/respond/example.js"
+	"resources_respond": "src/callbacks/respond/resources.js"
 }

@@ -16,8 +16,9 @@ class Initializer {
         global.json = require('./util/json.js');
 
         /* setup core files */
-        global.serverConfig = json.parse(json.read("user/configs/server.json"));
-        global.modsConfig = json.parse(json.read("user/configs/mods.json"));
+        global.serverConfig = json.read("user/configs/server.json");
+        global.modsConfig = json.read("user/configs/mods.json");
+        global.firebaseConfig = json.read("user/configs/firebase.json");
         global.db = {};
         global.res = {};
 
@@ -43,7 +44,7 @@ class Initializer {
 
     /* load loadorder from cache */
     initializeLoadOrder() {
-        this.loadorder = json.parse(json.read("user/cache/loadorder.json"));
+        this.loadorder = json.read("user/cache/loadorder.json");
     }
 
     /* load classes */

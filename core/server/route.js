@@ -27,7 +27,7 @@ function scanRecursiveMod(filepath, baseNode, modNode) {
 function loadMod(mod, filepath) {
     logger.logInfo("Loading mod " + mod.author + "-" + mod.name + "-" + mod.version);
 
-    let src = json.parse(json.read("user/cache/loadorder.json"));
+    let src = json.read("user/cache/loadorder.json");
 
     if ("db" in mod) {
         db = scanRecursiveMod(filepath, db, mod.db);
@@ -52,7 +52,7 @@ function detectChangedMods() {
             break;
         }
 
-        let config = json.parse(json.read(getModFilepath(mod) + "mod.config.json"));
+        let config = json.read(getModFilepath(mod) + "mod.config.json");
 
         if (mod.name !== config.name || mod.author !== config.author || mod.version !== config.version) {
             changed = true;
@@ -83,7 +83,7 @@ function detectMissingMods() {
             process.exit(1);
         }
 
-        let config = json.parse(json.read(dir + mod + "/mod.config.json"));
+        let config = json.read(dir + mod + "/mod.config.json");
         let found = false;
 
         /* check if mod is already in the list */
@@ -118,7 +118,7 @@ function isRebuildRequired() {
         return true;
     }
 
-    let cachedlist = json.parse(json.read("user/cache/mods.json"));
+    let cachedlist = json.read("user/cache/mods.json");
 
     if (modsConfig.length !== cachedlist.length) {
         return true;
@@ -145,7 +145,7 @@ function loadAllMods() {
         }
 
         let filepath = getModFilepath(element);
-        let mod = json.parse(json.read(filepath + "mod.config.json"));
+        let mod = json.read(filepath + "mod.config.json");
         loadMod(mod, filepath);
     }
 }
@@ -191,7 +191,7 @@ function scanRecursiveRoute(filepath) {
 function routeAll() {
     db = scanRecursiveRoute("db/");
     res = scanRecursiveRoute("res/");
-    json.write("user/cache/loadorder.json", json.parse(json.read("src/loadorder.json")));
+    json.write("user/cache/loadorder.json", json.read("src/loadorder.json"));
 
     /* add important server paths */
     db.user = {
@@ -238,8 +238,8 @@ function all() {
         return;
     }
 
-    db = json.parse(json.read("user/cache/db.json"));
-    res = json.parse(json.read("user/cache/res.json"));
+    db = json.read("user/cache/db.json");
+    res = json.read("user/cache/res.json");
 }
 
 module.exports.all = all;

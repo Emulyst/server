@@ -36,7 +36,7 @@ class ScheduledEventHandler {
 			return;
 		}
 
-		this.scheduledEvents = json.parse(json.read(db.user.events.schedule));
+		this.scheduledEvents = json.read(db.user.events.schedule);
 	}
 
 	processSchedule() {

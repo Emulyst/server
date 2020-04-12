@@ -16,17 +16,17 @@ class Router {
         this.dynamicRoutes[route] = callback;
     }
 
-    getResponse(req, data) {
+    async getResponse(req, data) {
         let output = "";
         let url = req.url;
         
         /* route request */
         if (url in this.staticRoutes) {
-            output = this.staticRoutes[url](url, data);
+            output = await this.staticRoutes[url](url, data);
         } else {
             for (let key in this.dynamicRoutes) {
                 if (url.includes(key)) {
-                    output = this.dynamicRoutes[key](url, data);
+                    output = await this.dynamicRoutes[key](url, data);
                 }
             }
         }

@@ -8,6 +8,9 @@
 package-lock.json
 Emulyst-Server.exe
 
+## firebase
+serviceAccountkey.json
+
 ## visual studio
 .vs
 .idea
