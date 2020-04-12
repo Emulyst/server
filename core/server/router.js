@@ -33,8 +33,8 @@ class Router {
 
         /* route doesn't exist or response is not properly set up */
         if (output === "") {
-            logger.logError("[UNHANDLED][" + url + "] request data: " + json.stringify(data));
-            output = json.stringify({"err": 404, "errmsg": "UNHANDLED RESPONSE:" + url, "data": null});
+            logger.logError("[UNHANDLED][" + req.method + " " + url + "] request data: " + json.stringify(data));
+            throw {"err": 404, "errmsg": "UNHANDLED RESPONSE:" + url, "data": null};
         }
     
         return output;

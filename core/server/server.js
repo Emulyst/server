@@ -46,6 +46,11 @@ class Server {
         resp.end(output);
     }
 
+    sendErrorJson(resp, error) {
+        resp.writeHead(error.err ? error.err : 500, error.errmsg ? error.errmsg : "Internal Server Error", {'Content-Type': this.mime['json']});
+        resp.end(JSON.stringify(error));
+    }
+
     sendFile(resp, file) {
         if (!fs.existsSync(file)) {
             resp.writeHead(404, "Not found");
@@ -63,7 +68,13 @@ class Server {
     }
 
     async sendResponse(req, resp, data) {
-        let output = await router.getResponse(req, data);
+        let output = "";
+        try {
+            output = await router.getResponse(req, data);
+        } catch (e) {
+            this.sendErrorJson(resp, e);
+            return;
+        }
 
         // execute data received callback
         for (let type in this.receiveCallback) {
