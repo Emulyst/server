@@ -47,8 +47,12 @@ class Server {
     }
 
     sendErrorJson(resp, error) {
-        resp.writeHead(error.err ? error.err : 500, error.errmsg ? error.errmsg : "Internal Server Error", {'Content-Type': this.mime['json']});
-        resp.end(JSON.stringify(error));
+        resp.writeHead(error.code ? error.code : 500, error.message ? error.message : "INTERNAL SERVER ERROR", {'Content-Type': this.mime['json']});
+        if (error.data) {
+            resp.end(JSON.stringify(error.data));
+        } else {
+            resp.end();
+        }
     }
 
     sendFile(resp, file) {

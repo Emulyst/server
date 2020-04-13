@@ -1,7 +1,12 @@
 {
 	"resources": "src/responses/resources.js",
+
 	"login": "src/responses/login.js",
-	"platinums": "src/responses/platinums.js",
+	"initial_requests": "src/responses/initial_requests.js",
+
+	"rank_event": "src/responses/events/rank.js",
+
+	"platinums": "src/responses/bnea/platinums.js",
 
 	"resources_respond": "src/callbacks/respond/resources.js"
 }
