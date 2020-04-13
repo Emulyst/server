@@ -1,6 +1,7 @@
 {
 	"resources": "src/responses/resources.js",
 	"login": "src/responses/login.js",
+	"platinums": "src/responses/platinums.js",
 
 	"resources_respond": "src/callbacks/respond/resources.js"
 }

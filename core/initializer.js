@@ -19,6 +19,7 @@ class Initializer {
         global.serverConfig = json.read("user/configs/server.json");
         global.modsConfig = json.read("user/configs/mods.json");
         global.firebaseConfig = json.read("user/configs/firebase.json");
+        global.firebaseServiceKey = json.read("user/configs/serviceAccountKey.json");
         global.db = {};
         global.res = {};
 
@@ -31,6 +32,7 @@ class Initializer {
         global.events = require('./server/events.js');
         global.server = (require('./server/server.js').server);
         global.watermark = require('./server/watermark.js');
+        global.firebase = require('./server/firebase.js');
     }
 
     /* load exception handler */
