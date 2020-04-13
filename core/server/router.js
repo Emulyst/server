@@ -22,11 +22,11 @@ class Router {
         
         /* route request */
         if (url in this.staticRoutes) {
-            output = await this.staticRoutes[url](url, data);
+            output = await this.staticRoutes[url](req, data);
         } else {
             for (let key in this.dynamicRoutes) {
                 if (url.includes(key)) {
-                    output = await this.dynamicRoutes[key](url, data);
+                    output = await this.dynamicRoutes[key](req, data);
                 }
             }
         }

@@ -1,6 +1,6 @@
 "use strict";
 
-function sendImage(url, data) {
+function sendImage(req, data) {
     return "IMAGE";
 }
 
